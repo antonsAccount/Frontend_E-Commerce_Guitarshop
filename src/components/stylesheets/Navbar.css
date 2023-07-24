@@ -1,0 +1,25 @@
+#navbar-div {
+  background-color: #4f4444;
+}
+#navbar-div .css-hyum1k-MuiToolbar-root {
+  width: 100%;
+}
+
+#navbar-logo {
+  width: 100%;
+  max-width: 400px;
+  /* flex-grow: 1; */
+  margin: 1rem 0 1rem 0;
+}
+
+.navbar-list a {
+  padding-right: 3rem;
+  text-decoration: none;
+  color: black;
+}
+.navbar-list a:hover {
+  padding-right: 3rem;
+  text-decoration: none;
+  color: #615959;
+  font-size: 2rem;
+}
