@@ -6,7 +6,6 @@ function App() {
   return (
     <>
       <Navbar />
-      <h3>ENV:{import.meta.env.VITE_API_URL}</h3>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
