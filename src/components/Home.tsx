@@ -1,7 +1,11 @@
-export default function Home() {
+type HomeProps = {
+  token?: string;
+};
+
+export default function Home({ token }: HomeProps): JSX.Element {
   return (
     <>
-      <h2>Home Component</h2>
+      <h2 style={{ textAlign: "center" }}>Home Component</h2>
       <br />
       <br />
       <br />
