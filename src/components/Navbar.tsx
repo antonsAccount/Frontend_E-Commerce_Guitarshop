@@ -14,6 +14,10 @@ import "./stylesheets/Navbar.css";
 
 export default function Navbar() {
   const [extended, setExtended] = useState(false);
+  // const { token } = useContext(AuthContext);
+  // if (token) {
+  //   console.log(token);
+  // }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" id="navbar-div">
