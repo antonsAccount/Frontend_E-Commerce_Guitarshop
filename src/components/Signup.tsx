@@ -8,10 +8,13 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Alert from "@mui/material/Alert";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
+
+import "./stylesheets/Signup.css";
 function Copyright(props: any) {
   return (
     <Typography
@@ -36,16 +39,50 @@ export default function SignUp() {
   const [birthday, setBirthday] = useState<Dayjs | null>(null);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const [alertType, setAlertType] = useState<string>("");
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log("data", data);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    const date: Date = birthday.toDate(); //form validation with MUI Alert instead of required attribute
-    console.log(date);
+    setAlertType("");
+    const newUser = {
+      first_name: firstName,
+      last_name: lastName,
+      birthday,
+      email,
+      password,
+    };
+
+    try {
+      const res = await fetch("http://localhost:5000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+      });
+      if (res.ok) {
+        setAlertType("success");
+        console.log("Success ran");
+      } else {
+        setAlertType("error");
+      }
+
+      setBirthday(null);
+    } catch (error) {
+      setAlertType("error");
+    }
+
+    // const data = new FormData(event.currentTarget);
+    // console.log("data", data);
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
+    if (birthday !== null) {
+      const date: Date = birthday.toDate(); //form validation with MUI Alert instead of required attribute
+      console.log(date);
+    }
   };
 
   return (
@@ -74,6 +111,7 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -84,6 +122,7 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="family-name"
+                onChange={(e) => setLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -113,6 +152,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -124,9 +164,20 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="new-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>
+          {alertType === "error" ? (
+            <Alert className="signupAlert" severity="error">
+              An Error has ocurred!
+            </Alert>
+          ) : null}
+          {alertType === "success" ? (
+            <Alert className="signupAlert" severity="success">
+              Your Account has successfully been created!
+            </Alert>
+          ) : null}
           <Button
             type="submit"
             fullWidth
