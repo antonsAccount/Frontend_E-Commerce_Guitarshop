@@ -88,7 +88,7 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
                 />
                 <Button
                   variant="outlined"
-                  sx={{ color: "white", borderColor: "white" }}
+                  sx={{ color: "white", borderColor: "white", m: 2 }}
                   onClick={() => navigate(`shop/${item._id}`)}
                 >
                   Check it out!
