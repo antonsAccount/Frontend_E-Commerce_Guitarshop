@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import Logo from "../assets/logo-no-background.svg";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -36,7 +36,9 @@ export default function Navbar({ token }: NavbarProps): JSX.Element {
               alignItems: "center",
             }}
           >
-            <img id="navbar-logo" src={Logo} alt="logo" />
+            <Link to="/">
+              <img id="navbar-logo" src={Logo} alt="logo" />
+            </Link>
           </Box>
           <Box
             sx={{
