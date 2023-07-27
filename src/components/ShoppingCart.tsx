@@ -15,7 +15,7 @@ export default function ShoppingCart({ stuff }: ShoppingCartProps) {
         src={
           "https://netrinoimages.s3.eu-west-2.amazonaws.com/2014/02/13/370112/438511/shopping_cart_v8_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_4515304_o.jpg"
         }
-        style={{ width: "640px", height: "640px" }}
+        style={{ maxWidth: "100%" }}
       />
     </div>
   );

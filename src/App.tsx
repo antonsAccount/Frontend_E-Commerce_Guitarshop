@@ -26,9 +26,9 @@ function App() {
 
   return (
     <>
-      <Navbar token={"testToken"} />
+      <Navbar /* token={"testToken"} */ />
       <Routes>
-        <Route path="/" element={<Home token={"test"} />} />
+        <Route path="/" element={<Home token={"test"} data={data} />} />
         <Route path="/shop" element={<Shop data={data} />} />
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="*" element={<h2>Page Not Found</h2>} />
