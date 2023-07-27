@@ -28,12 +28,14 @@ export default function Navbar({ token }: NavbarProps): JSX.Element {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" id="navbar-div">
         <Toolbar>
+          <Box sx={{ width: "20%" }}></Box>
           <Box
             sx={{
               flex: "1",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              width: "60%",
             }}
           >
             <Link to="/">
@@ -45,6 +47,7 @@ export default function Navbar({ token }: NavbarProps): JSX.Element {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              width: "20%",
             }}
           >
             <ShoppingCartIcon
