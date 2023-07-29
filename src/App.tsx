@@ -1,6 +1,7 @@
 import Home from "./components/Home";
 import Shop from "./components/Shop";
 import Navbar from "./components/Navbar";
+import SignUp from "./components/Signup";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Instrument, Cart, CartItem } from "./components/types";
@@ -31,6 +32,7 @@ function App() {
         <Route path="/" element={<Home token={"test"} data={data} />} />
         <Route path="/shop" element={<Shop data={data} />} />
         <Route path="/cart" element={<ShoppingCart />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="*" element={<h2>Page Not Found</h2>} />
       </Routes>
     </>
