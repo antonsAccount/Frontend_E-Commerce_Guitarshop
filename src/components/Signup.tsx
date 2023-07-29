@@ -40,48 +40,46 @@ export default function SignUp() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [alertType, setAlertType] = useState<string>("");
+
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
     setAlertType("");
-    const newUser = {
-      first_name: firstName,
-      last_name: lastName,
-      birthday,
-      email,
-      password,
-    };
 
-    try {
-      const res = await fetch("http://localhost:5000/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      });
-      if (res.ok) {
-        setAlertType("success");
-        console.log("Success ran");
-      } else {
+    if (!firstName || !lastName || !birthday || !email || !password)
+      setAlertType("warning");
+    else {
+      try {
+        const newUser = {
+          first_name: firstName,
+          last_name: lastName,
+          birthday: birthday.toDate(),
+          email,
+          password,
+        };
+        // const date: Date = birthday.toDate();
+        const res = await fetch("http://localhost:5000/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        });
+        if (res.ok) {
+          setAlertType("success");
+          setBirthday(null);
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setPassword("");
+          console.log("Success ran", res);
+        } else {
+          setAlertType("error");
+        }
+      } catch (error) {
         setAlertType("error");
       }
-
-      setBirthday(null);
-    } catch (error) {
-      setAlertType("error");
-    }
-
-    // const data = new FormData(event.currentTarget);
-    // console.log("data", data);
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
-    if (birthday !== null) {
-      const date: Date = birthday.toDate(); //form validation with MUI Alert instead of required attribute
-      console.log(date);
     }
   };
 
@@ -176,6 +174,11 @@ export default function SignUp() {
           {alertType === "success" ? (
             <Alert className="signupAlert" severity="success">
               Your Account has successfully been created!
+            </Alert>
+          ) : null}
+          {alertType === "warning" ? (
+            <Alert className="signupAlert" severity="warning">
+              Please fill in all fields!
             </Alert>
           ) : null}
           <Button
