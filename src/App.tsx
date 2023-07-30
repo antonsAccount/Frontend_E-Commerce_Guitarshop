@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Instrument, Cart, CartItem } from "./components/types";
 import ShoppingCart from "./components/ShoppingCart";
+import Login from "./components/Login";
 
 function App() {
   const [data, setData] = useState([]);
@@ -33,6 +34,7 @@ function App() {
         <Route path="/shop" element={<Shop data={data} />} />
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<h2>Page Not Found</h2>} />
       </Routes>
     </>

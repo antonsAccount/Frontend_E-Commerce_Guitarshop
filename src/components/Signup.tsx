@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -13,6 +14,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
+import validator from "validator";
 
 import "./stylesheets/Signup.css";
 function Copyright(props: any) {
@@ -41,6 +43,8 @@ export default function SignUp() {
   const [password, setPassword] = useState<string>("");
   const [alertType, setAlertType] = useState<string>("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -48,8 +52,12 @@ export default function SignUp() {
     setAlertType("");
 
     if (!firstName || !lastName || !birthday || !email || !password)
-      setAlertType("warning");
-    else {
+      setAlertType("warning1");
+    else if (!validator.isEmail(email)) {
+      setAlertType("warning2");
+    } else if (!validator.isStrongPassword(password)) {
+      setAlertType("warning3");
+    } else {
       try {
         const newUser = {
           first_name: firstName,
@@ -58,6 +66,7 @@ export default function SignUp() {
           email,
           password,
         };
+
         // const date: Date = birthday.toDate();
         const res = await fetch("http://localhost:5000/signup", {
           method: "POST",
@@ -74,6 +83,7 @@ export default function SignUp() {
           setEmail("");
           setPassword("");
           console.log("Success ran", res);
+          navigate("/login");
         } else {
           setAlertType("error");
         }
@@ -176,9 +186,20 @@ export default function SignUp() {
               Your Account has successfully been created!
             </Alert>
           ) : null}
-          {alertType === "warning" ? (
+          {alertType === "warning1" ? (
             <Alert className="signupAlert" severity="warning">
               Please fill in all fields!
+            </Alert>
+          ) : null}
+          {alertType === "warning2" ? (
+            <Alert className="signupAlert" severity="warning">
+              Please enter a valid Email!
+            </Alert>
+          ) : null}
+          {alertType === "warning3" ? (
+            <Alert className="signupAlert" severity="warning">
+              Your password must be at least 8 characters long, contain at least
+              one number, one symbol, one uppercase and one lowercase letter.
             </Alert>
           ) : null}
           <Button
