@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -9,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Alert from "@mui/material/Alert";
 
 function Copyright(props: any) {
   return (
@@ -29,13 +31,31 @@ function Copyright(props: any) {
 }
 
 export default function Login() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [alertType, setAlertType] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
+    try {
+      setAlertType("");
+      if (!email || !password) {
+        setAlertType("warning");
+      } else {
+        const res = await fetch("http://localhost:5000/login/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+      }
+    } catch (error) {
+      setAlertType("error");
+    }
   };
 
   return (
@@ -77,6 +97,16 @@ export default function Login() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          {alertType === "error" ? (
+            <Alert className="signupAlert" severity="error">
+              An Error has ocurred!
+            </Alert>
+          ) : null}
+          {alertType === "warning" ? (
+            <Alert className="signupAlert" severity="warning">
+              Please fill in all the fields!
+            </Alert>
+          ) : null}
           <Button
             type="submit"
             fullWidth
@@ -92,7 +122,7 @@ export default function Login() {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
