@@ -35,7 +35,12 @@ function Copyright(props: any) {
   );
 }
 
-export default function SignUp() {
+type SignupProps = {
+  token?: String;
+  setToken: (string) => void;
+};
+
+export default function SignUp({ token, setToken }: SignupProps) {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [birthday, setBirthday] = useState<Dayjs | null>(null);
@@ -76,21 +81,22 @@ export default function SignUp() {
           body: JSON.stringify(newUser),
         });
         const data = await res.json();
-        setError(data.msg);
+        console.log(data);
 
-        if (data)
-          if (res.ok) {
-            setAlertType("success");
-            setBirthday(null);
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setPassword("");
-            console.log("Success ran", res);
-            navigate("/login");
-          } else {
-            setAlertType("error");
-          }
+        if (res.ok) {
+          setToken(data.token);
+          setAlertType("success");
+          setBirthday(null);
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setPassword("");
+          console.log("Success ran", res);
+          navigate("/shop");
+        } else {
+          setAlertType("error");
+          setError(data.msg);
+        }
       } catch (error) {
         console.log(error);
         setAlertType("error");
