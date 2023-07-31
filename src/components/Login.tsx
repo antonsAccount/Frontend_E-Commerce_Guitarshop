@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Alert from "@mui/material/Alert";
+import validator from "validator";
 
 function Copyright(props: any) {
   return (
@@ -44,6 +45,8 @@ export default function Login() {
       setAlertType("");
       if (!email || !password) {
         setAlertType("warning");
+      } else if (!validator.isEmail(email)) {
+        setAlertType("warning2");
       } else {
         const res = await fetch("http://localhost:5000/login/", {
           method: "POST",
@@ -52,6 +55,8 @@ export default function Login() {
           },
           body: JSON.stringify({ email, password }),
         });
+        const data = await res.json();
+        console.log(data);
       }
     } catch (error) {
       setAlertType("error");
@@ -82,6 +87,10 @@ export default function Login() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <TextField
             margin="normal"
@@ -92,6 +101,10 @@ export default function Login() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -105,6 +118,11 @@ export default function Login() {
           {alertType === "warning" ? (
             <Alert className="signupAlert" severity="warning">
               Please fill in all the fields!
+            </Alert>
+          ) : null}
+          {alertType === "warning2" ? (
+            <Alert className="signupAlert" severity="warning">
+              Please enter a valid Email!
             </Alert>
           ) : null}
           <Button
