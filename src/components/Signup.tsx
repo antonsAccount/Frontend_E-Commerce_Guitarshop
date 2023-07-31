@@ -42,7 +42,7 @@ export default function SignUp() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [alertType, setAlertType] = useState<string>("");
-
+  const [error, setError] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSubmit = async (
@@ -75,19 +75,24 @@ export default function SignUp() {
           },
           body: JSON.stringify(newUser),
         });
-        if (res.ok) {
-          setAlertType("success");
-          setBirthday(null);
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPassword("");
-          console.log("Success ran", res);
-          navigate("/login");
-        } else {
-          setAlertType("error");
-        }
+        const data = await res.json();
+        setError(data.msg);
+
+        if (data)
+          if (res.ok) {
+            setAlertType("success");
+            setBirthday(null);
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
+            console.log("Success ran", res);
+            navigate("/login");
+          } else {
+            setAlertType("error");
+          }
       } catch (error) {
+        console.log(error);
         setAlertType("error");
       }
     }
@@ -178,7 +183,7 @@ export default function SignUp() {
           </Grid>
           {alertType === "error" ? (
             <Alert className="signupAlert" severity="error">
-              An Error has ocurred!
+              An Error has ocurred! {error}
             </Alert>
           ) : null}
           {alertType === "success" ? (
