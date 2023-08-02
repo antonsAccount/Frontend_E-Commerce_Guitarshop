@@ -36,11 +36,10 @@ function Copyright(props: any) {
 }
 
 type SignupProps = {
-  token?: String;
-  setToken: (string) => void;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function SignUp({ token, setToken }: SignupProps) {
+export default function SignUp({ setToken }: SignupProps) {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [birthday, setBirthday] = useState<Dayjs | null>(null);

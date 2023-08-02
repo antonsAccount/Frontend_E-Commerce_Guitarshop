@@ -27,7 +27,7 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
       _id: item._id,
     };
   });
-  const itemsfourAndFive = items.slice(3, 4);
+  const itemsfourAndFive = items.slice(1, 4);
   console.log("Items:", items);
 
   return (

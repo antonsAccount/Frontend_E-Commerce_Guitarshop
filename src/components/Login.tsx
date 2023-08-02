@@ -33,11 +33,10 @@ function Copyright(props: any) {
 }
 
 type LoginProps = {
-  token?: String;
-  setToken: (string) => void;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function Login({ token, setToken }: LoginProps): JSX.Element {
+export default function Login({ setToken }: LoginProps): JSX.Element {
   const [alertType, setAlertType] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
