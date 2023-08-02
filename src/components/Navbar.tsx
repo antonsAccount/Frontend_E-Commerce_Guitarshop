@@ -12,20 +12,25 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import "./stylesheets/Navbar.css";
+import LogoutDialog from "./LogoutDialog";
 
 type NavbarProps = {
-  token?: String;
+  token: String;
+  setToken: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function Navbar({ token }: NavbarProps): JSX.Element {
+export default function Navbar({ token, setToken }: NavbarProps): JSX.Element {
   const [extended, setExtended] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+
   // const { token } = useContext(AuthContext);
   // if (token) {
   //   console.log(token);
   // }
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <LogoutDialog open={open} setOpen={setOpen} setToken={setToken} />
       <AppBar position="static" id="navbar-div">
         <Toolbar>
           <Box sx={{ width: "20%" }}></Box>
@@ -75,6 +80,7 @@ export default function Navbar({ token }: NavbarProps): JSX.Element {
             <List className="navbar-list">
               <ListItem>
                 <NavLink
+                  className="navbar-item"
                   to="/"
                   onClick={() => {
                     setExtended(false);
@@ -86,6 +92,7 @@ export default function Navbar({ token }: NavbarProps): JSX.Element {
 
               <ListItem>
                 <NavLink
+                  className="navbar-item"
                   to="/shop"
                   onClick={() => {
                     setExtended(false);
@@ -97,6 +104,7 @@ export default function Navbar({ token }: NavbarProps): JSX.Element {
 
               <ListItem>
                 <NavLink
+                  className="navbar-item"
                   to="/cart"
                   onClick={() => {
                     setExtended(false);
@@ -109,20 +117,19 @@ export default function Navbar({ token }: NavbarProps): JSX.Element {
               </ListItem>
 
               {token ? (
-                <ListItem>
-                  <NavLink
-                    to="/shop"
-                    onClick={() => {
-                      alert("logout logic here");
-                    }}
-                  >
-                    <ListItemText primary="Logout" />
-                  </NavLink>
+                <ListItem
+                  className="navbar-item"
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                >
+                  <ListItemText primary="Logout" />
                 </ListItem>
               ) : (
                 <div>
                   <ListItem>
                     <NavLink
+                      className="navbar-item"
                       to="/login"
                       onClick={() => {
                         setExtended(false);
@@ -134,6 +141,7 @@ export default function Navbar({ token }: NavbarProps): JSX.Element {
 
                   <ListItem>
                     <NavLink
+                      className="navbar-item"
                       to="/signup"
                       onClick={() => {
                         setExtended(false);

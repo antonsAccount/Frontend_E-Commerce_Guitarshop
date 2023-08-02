@@ -10,7 +10,7 @@ import Login from "./components/Login";
 
 function App() {
   const [data, setData] = useState([]);
-
+  const [token, setToken] = useState("");
   const getData = async (): Promise<void> => {
     try {
       const res = await fetch("http://localhost:5000/instruments");
@@ -26,15 +26,37 @@ function App() {
     getData();
   }, []);
 
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    console.log("storedToken", storedToken);
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("token", token);
+    } else {
+      localStorage.removeItem("token");
+    }
+  }, [token]);
+
   return (
     <>
-      <Navbar /* token={"testToken"} */ />
+      <Navbar token={token} setToken={setToken} />
       <Routes>
         <Route path="/" element={<Home token={"test"} data={data} />} />
         <Route path="/shop" element={<Shop data={data} />} />
         <Route path="/cart" element={<ShoppingCart />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/signup"
+          element={<SignUp token={token} setToken={setToken} />}
+        />
+        <Route
+          path="/login"
+          element={<Login token={token} setToken={setToken} />}
+        />
         <Route path="*" element={<h2>Page Not Found</h2>} />
       </Routes>
     </>

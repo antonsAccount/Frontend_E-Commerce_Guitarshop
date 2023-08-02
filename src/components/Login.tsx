@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -31,10 +32,16 @@ function Copyright(props: any) {
   );
 }
 
-export default function Login() {
+type LoginProps = {
+  token?: String;
+  setToken: (string) => void;
+};
+
+export default function Login({ token, setToken }: LoginProps): JSX.Element {
   const [alertType, setAlertType] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (
     event: React.FormEvent<HTMLFormElement>
@@ -56,6 +63,10 @@ export default function Login() {
           body: JSON.stringify({ email, password }),
         });
         const data = await res.json();
+        if (res.ok) {
+          setToken(data.token);
+          navigate("/shop");
+        }
         console.log(data);
       }
     } catch (error) {
