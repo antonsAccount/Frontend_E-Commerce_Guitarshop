@@ -13,12 +13,25 @@
   margin: 1rem 0 1rem 0;
 }
 
-.navbar-list a {
+/* .navbar-list a {
   padding-right: 3rem;
   text-decoration: none;
   color: black;
+} */
+.navbar-list .navbar-item {
+  padding-right: 3rem;
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
 }
-.navbar-list a:hover {
+
+/* .navbar-list a:hover {
+  padding-right: 3rem;
+  text-decoration: none;
+  color: #615959;
+  font-size: 2rem;
+} */
+.navbar-list .navbar-item:hover {
   padding-right: 3rem;
   text-decoration: none;
   color: #615959;

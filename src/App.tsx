@@ -44,7 +44,7 @@ function App() {
 
   return (
     <>
-      <Navbar token={token} />
+      <Navbar token={token} setToken={setToken} />
       <Routes>
         <Route path="/" element={<Home token={"test"} data={data} />} />
         <Route path="/shop" element={<Shop data={data} />} />
