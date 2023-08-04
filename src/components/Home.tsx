@@ -70,7 +70,7 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
                   cursor: "pointer",
                 }}
                 onClick={() => {
-                  navigate(`/${item._id}`);
+                  navigate(`/shop/${item._id}`);
                 }}
               >
                 <img
