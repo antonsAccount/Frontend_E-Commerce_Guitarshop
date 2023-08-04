@@ -26,12 +26,6 @@ type ShopProps = {
 export default function Shop({ data }: ShopProps) {
   return (
     <>
-      {/* <h2>Shop Component WIP</h2>
-      {data?.map((item) => (
-        <h5>
-          {item.brand} - {item.model} - Price: {item.price}
-        </h5>
-      ))} */}
       <Box sx={{ marginTop: "1rem" }}>
         <Grid container spacing={1}>
           {data?.map((item) => (
@@ -57,21 +51,22 @@ export default function Shop({ data }: ShopProps) {
                 <CardContent>
                   <Box
                     sx={{
-                      minHeight: "5rem",
+                      minHeight: "4rem",
                     }}
                   >
-                    <Typography gutterBottom variant="h6" component="div">
+                    <Typography gutterBottom variant="body1" component="div">
                       {item.brand + " " + item.model}
                     </Typography>
                   </Box>
 
-                  <Typography variant="body2" color="text.secondary">
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ textAlign: "center" }}
+                  >
                     {item.price}€
                   </Typography>
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Learn More</Button>
-                </CardActions>
               </Card>
 
               {/* <h5>

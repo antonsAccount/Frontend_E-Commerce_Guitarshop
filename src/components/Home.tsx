@@ -22,27 +22,25 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
   const navigate = useNavigate();
   const items: Item[] = data.map((item) => {
     return {
-      name: `${item.brand}: ${item.model}`,
+      name: `${item.year} ${item.brand}: ${item.model}`,
       image_url: item.image_url,
       _id: item._id,
     };
   });
-  const itemsfourAndFive = items.slice(1, 2);
-  console.log("Items:", items);
+  // const itemsfourAndFive = items.slice(1, 2);
+  // console.log("Items:", items);
 
   return (
-    <Box sx={{ textAlign: "center" }}>
-      <h2>Home Component</h2>
-
-      <h2>
-        This site is still in progress and gets updated daily! Please come back
-        later.
-        <br />
+    <Box sx={{ textAlign: "center", backgroundColor: "black" }}>
+      <Typography variant="h5" sx={{ color: "white", p: 3 }}>
         Welcome to Anton's Rare Guitars. Feel free to check out all the
-        instruments we have in stock right now! <Link to="/shop">Here</Link>
-      </h2>
+        instruments we have in stock right now!{" "}
+        <Link to="/shop" style={{ color: "white" }}>
+          Here
+        </Link>
+      </Typography>
 
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body1" gutterBottom color="white">
         New Arrivals:
       </Typography>
       <Box
@@ -69,15 +67,12 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
                   alignItems: "center",
                   justifyContent: "center",
                   backgroundColor: "black",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  navigate(`/${item._id}`);
                 }}
               >
-                <Typography
-                  variant="h6"
-                  gutterBottom
-                  sx={{ color: "white", m: 2 }}
-                >
-                  {item.name}
-                </Typography>
                 <img
                   src={item.image_url}
                   alt={item.name}
@@ -86,13 +81,20 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
                     objectFit: "cover",
                   }}
                 />
-                <Button
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  sx={{ color: "white", m: 2 }}
+                >
+                  {item.name}
+                </Typography>
+                {/* <Button
                   variant="outlined"
                   sx={{ color: "white", borderColor: "white", m: 2 }}
                   onClick={() => navigate(`shop/${item._id}`)}
                 >
                   Check it out!
-                </Button>
+                </Button> */}
               </Paper>
             );
           })}
