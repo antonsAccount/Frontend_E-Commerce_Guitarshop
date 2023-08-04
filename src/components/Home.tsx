@@ -27,15 +27,13 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
       _id: item._id,
     };
   });
-  const itemsfourAndFive = items.slice(3, 4);
+  const itemsfourAndFive = items.slice(1, 2);
   console.log("Items:", items);
 
   return (
-    <div style={{ textAlign: "center" }}>
+    <Box sx={{ textAlign: "center" }}>
       <h2>Home Component</h2>
-      <br />
-      <br />
-      <br />
+
       <h2>
         This site is still in progress and gets updated daily! Please come back
         later.
@@ -43,7 +41,7 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
         Welcome to Anton's Rare Guitars. Feel free to check out all the
         instruments we have in stock right now! <Link to="/shop">Here</Link>
       </h2>
-      <br />
+
       <Typography variant="body1" gutterBottom>
         New Arrivals:
       </Typography>
@@ -51,12 +49,14 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
         sx={{
           display: "flex",
           justifyContent: "center",
+          minHeight: "100vh",
         }}
       >
         <Carousel
           sx={{
             width: 1,
             margin: "0 auto",
+            minHeight: "100vh",
           }} /* autoPlay={false} */
         >
           {items.map((item, i) => {
@@ -98,21 +98,6 @@ export default function Home({ token, data }: HomeProps): JSX.Element {
           })}
         </Carousel>
       </Box>
-
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-    </div>
+    </Box>
   );
 }

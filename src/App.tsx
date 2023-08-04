@@ -49,14 +49,8 @@ function App() {
         <Route path="/" element={<Home token={"test"} data={data} />} />
         <Route path="/shop" element={<Shop data={data} />} />
         <Route path="/cart" element={<ShoppingCart />} />
-        <Route
-          path="/signup"
-          element={<SignUp token={token} setToken={setToken} />}
-        />
-        <Route
-          path="/login"
-          element={<Login token={token} setToken={setToken} />}
-        />
+        <Route path="/signup" element={<SignUp setToken={setToken} />} />
+        <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="*" element={<h2>Page Not Found</h2>} />
       </Routes>
     </>
