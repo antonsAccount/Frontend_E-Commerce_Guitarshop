@@ -9,6 +9,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import "./stylesheets/Shop.css";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -31,20 +32,39 @@ export default function Shop({ data }: ShopProps) {
           {item.brand} - {item.model} - Price: {item.price}
         </h5>
       ))} */}
-      <Box sx={{ flexGrow: 1, justifyContent: "center", marginTop: "1rem" }}>
+      <Box sx={{ marginTop: "1rem" }}>
         <Grid container spacing={1}>
           {data?.map((item) => (
-            <Grid item xs={3}>
-              <Card sx={{ maxWidth: 345 }}>
+            <Grid
+              item
+              xs={6}
+              sm={6}
+              md={4}
+              lg={3}
+              xl={2}
+              /* sx={{ display: "flex", justifyContent: "center" }} */
+            >
+              <Card
+                sx={{
+                  maxWidth: 345,
+                }}
+              >
                 <CardMedia
-                  sx={{ height: 140 }}
+                  sx={{ height: 300 }}
                   image={item.image_url}
                   title={item.model}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {item.brand + " " + item.model}
-                  </Typography>
+                  <Box
+                    sx={{
+                      minHeight: "5rem",
+                    }}
+                  >
+                    <Typography gutterBottom variant="h6" component="div">
+                      {item.brand + " " + item.model}
+                    </Typography>
+                  </Box>
+
                   <Typography variant="body2" color="text.secondary">
                     {item.price}€
                   </Typography>
