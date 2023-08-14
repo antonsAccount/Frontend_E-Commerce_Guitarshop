@@ -23,7 +23,14 @@ export default function SingleInstrument({ data }: SingleInstrumentProps) {
       >
         {`${inst.year} ${inst.brand} ${inst.model}`}
       </Typography>
-      <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          justifyContent: "center",
+          marginLeft: { xs: "1rem", md: "4rem" },
+        }}
+      >
         <Box sx={{ display: "flex", justifyContent: "space-around" }}>
           <Box
             component="img"
