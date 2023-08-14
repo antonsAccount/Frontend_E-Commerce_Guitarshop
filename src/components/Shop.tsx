@@ -10,6 +10,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import "./stylesheets/Shop.css";
+import { CardActionArea } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -24,6 +26,7 @@ type ShopProps = {
 };
 
 export default function Shop({ data }: ShopProps) {
+  const navigate = useNavigate();
   return (
     <>
       <Box sx={{ marginTop: "1rem" }}>
@@ -43,30 +46,32 @@ export default function Shop({ data }: ShopProps) {
                   maxWidth: 345,
                 }}
               >
-                <CardMedia
-                  sx={{ height: 300 }}
-                  image={item.image_url}
-                  title={item.model}
-                />
-                <CardContent>
-                  <Box
-                    sx={{
-                      minHeight: "4rem",
-                    }}
-                  >
-                    <Typography gutterBottom variant="body1" component="div">
-                      {item.brand + " " + item.model}
-                    </Typography>
-                  </Box>
+                <CardActionArea onClick={() => navigate(`/shop/${item._id}`)}>
+                  <CardMedia
+                    sx={{ height: 300 }}
+                    image={item.image_url}
+                    title={item.model}
+                  />
+                  <CardContent>
+                    <Box
+                      sx={{
+                        minHeight: "4rem",
+                      }}
+                    >
+                      <Typography gutterBottom variant="body1" component="div">
+                        {item.brand + " " + item.model}
+                      </Typography>
+                    </Box>
 
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{ textAlign: "center" }}
-                  >
-                    {item.price}€
-                  </Typography>
-                </CardContent>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{ textAlign: "center" }}
+                    >
+                      {item.price}€
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
               </Card>
 
               {/* <h5>
