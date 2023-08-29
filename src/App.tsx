@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import SignUp from "./components/Signup";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Instrument, Cart, CartItem } from "./components/types";
+import { Instrument, Cart /* CartItem */ } from "./components/types";
 import ShoppingCart from "./components/ShoppingCart";
 import Login from "./components/Login";
 import SingleInstrument from "./components/SingleInstrument";
@@ -12,6 +12,7 @@ import SingleInstrument from "./components/SingleInstrument";
 function App() {
   const [data, setData] = useState([]);
   const [token, setToken] = useState("");
+  const [cart, setCart] = useState<Instrument[]>([]);
   const getData = async (): Promise<void> => {
     try {
       const res = await fetch("http://localhost:5000/instruments");
@@ -49,7 +50,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Home token={"test"} data={data} />} />
         <Route path="/shop" element={<Shop data={data} />} />
-        <Route path="/shop/:id" element={<SingleInstrument data={data} />} />
+        <Route
+          path="/shop/:id"
+          element={
+            <SingleInstrument data={data} cart={cart} setCart={setCart} />
+          }
+        />
         <Route path="/cart" element={<ShoppingCart />} />
         <Route path="/signup" element={<SignUp setToken={setToken} />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
