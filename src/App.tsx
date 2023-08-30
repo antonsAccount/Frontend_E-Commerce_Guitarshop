@@ -56,7 +56,10 @@ function App() {
             <SingleInstrument data={data} cart={cart} setCart={setCart} />
           }
         />
-        <Route path="/cart" element={<ShoppingCart />} />
+        <Route
+          path="/cart"
+          element={<ShoppingCart cart={cart} setCart={setCart} />}
+        />
         <Route path="/signup" element={<SignUp setToken={setToken} />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="*" element={<h2>Page Not Found</h2>} />
