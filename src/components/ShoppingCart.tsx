@@ -45,10 +45,10 @@ export default function ShoppingCart({ cart, setCart }: ShoppingCartProps) {
             flexDirection: { xs: "column", md: "row" },
           }}
         >
-          <Box id="item-list" sx={{ width: "50%" }}>
+          <Box id="item-list" sx={{ width: { xs: "100%", md: "50%" } }}>
             {cart?.map((inst) => {
               return (
-                <Card sx={{ display: "flex", minWidth: 275, mt: 1 }}>
+                <Card sx={{ display: "flex", mt: 1 }}>
                   <CardContent sx={{ display: "flex" }}>
                     <CardMedia
                       component="img"
@@ -56,16 +56,19 @@ export default function ShoppingCart({ cart, setCart }: ShoppingCartProps) {
                       alt="Instrument Image"
                       sx={{ width: "20%" }}
                     ></CardMedia>
-                    <Typography variant="h5" component="div"></Typography>
-                    <Typography
-                      sx={{ mb: 1.5, fontWeight: "bold" }}
-                      color="text.primary"
+                    <Box
+                      sx={{ display: "flex", flexDirection: "column", ml: 1 }}
                     >
-                      {inst.brand + " " + inst.model}
-                    </Typography>
-                    <Typography variant="body1" color={"green"}>
-                      in Stock
-                    </Typography>
+                      <Typography
+                        sx={{ mb: 1.5, fontWeight: "bold" }}
+                        color="text.primary"
+                      >
+                        {inst.brand + " " + inst.model}
+                      </Typography>
+                      <Typography variant="body1" color={"green"}>
+                        in Stock
+                      </Typography>
+                    </Box>
                   </CardContent>
                   <CardActions>
                     <DeleteIcon onClick={() => alert("yes")}></DeleteIcon>
