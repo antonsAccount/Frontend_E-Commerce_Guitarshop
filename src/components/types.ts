@@ -21,16 +21,16 @@ export interface Instrument {
   updatedAt?: Date;
 }
 
-export interface CartItem {
-  itemId: string;
-  name: string;
-  quantity: number;
-  price: string;
-}
+// export interface CartItem {
+//   itemId: string;
+//   name: string;
+//   quantity: number;
+//   price: string;
+// }
 
 export interface Cart {
   owner: string;
-  items: CartItem[];
+  items: Instrument[]; //CartItem[]
   bill: number;
   createdAt?: Date;
   updatedAt?: Date;
